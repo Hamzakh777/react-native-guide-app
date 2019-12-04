@@ -9,20 +9,19 @@ import {
 	FlatList
 } from "react-native";
 
+// capitale letters so React Native recognizes it as a custom component
+import GoalInput from './components/GoalInput';
+import GoalItem from './components/GoalItem';
+
 // in react native we can\t ouput text directly
 // in the view - view is kind off the div for web -
 // we have to use the Text component
 export default function App() {
-	const [enteredGoal, setEnteredGoal] = useState("");
 	const [courseGoals, setCourseGoals] = useState([]);
 
-	const goalInputHandler = goal => {
-		setEnteredGoal(goal);
-	};
-
-	const addGoalHandler = () => {
+	const addGoalHandler = goal => {
 		// to get teh latest snapshot of the state
-		setCourseGoals(currentGoals => [...courseGoals, enteredGoal]);
+		setCourseGoals(currentGoals => [...courseGoals, goal]);
 	};
 
 	return (
@@ -31,26 +30,18 @@ export default function App() {
 		// where keys are properties
 		// and the value is the value
 		<View style={styles.screen}>
-			<View style={styles.inputContainer}>
-				<TextInput
-					placeholder="Course Goal"
-					style={styles.input}
-					onChangeText={goalInputHandler}
-					value={enteredGoal}
-				/>
-				<Button title="Add" onPress={addGoalHandler} />
-			</View>
 			{/*  scroll view renders all the elements in advance even 
 			  if they are not visible on the screen yet, this is very bad for performance
 			  and can make the app slow if we have a very long list
 			  thats why we use FlatList */}
+			<GoalInput onAddGoal={addGoalHandler}/>
 			<FlatList
 				data={courseGoals}
 				// render item takes a callback function
 				renderItem={itemData => (
-					<View style={styles.listItem} >
-						<Text>{itemData.item}</Text>
-					</View>
+					<GoalItem
+						title={itemData.item}
+					/>
 				)}
 				// each list item needs a unique key 
 				// keyExtractor tells FlatList how to 
@@ -66,25 +57,5 @@ export default function App() {
 const styles = StyleSheet.create({
 	screen: {
 		padding: 30
-	},
-	inputContainer: {
-		flexDirection: "row",
-		justifyContent: "space-between",
-		alignItems: "center"
-	},
-	input: {
-		borderBottomColor: "black",
-		borderBottomWidth: 2,
-		marginBottom: 10,
-		fontSize: 18,
-		flexGrow: 1,
-		marginRight: 16
-	},
-	listItem: {
-		padding: 10,
-		borderColor: "#000",
-		borderWidth: 2,
-		backgroundColor: "#ccc",
-		marginVertical: 10
 	}
 });
