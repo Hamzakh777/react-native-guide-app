@@ -21,7 +21,13 @@ export default function App() {
 
 	const addGoalHandler = goal => {
 		// to get teh latest snapshot of the state
-		setCourseGoals(currentGoals => [...courseGoals, goal]);
+		setCourseGoals(currentGoals => [...currentGoals, goal]);
+	};
+
+	const removeGoalHandler = goalToRemove => {
+		setCourseGoals(currentGoals => {
+			return currentGoals.filter(goal => goal !== goalToRemove);
+		});
 	};
 
 	return (
@@ -41,6 +47,7 @@ export default function App() {
 				renderItem={itemData => (
 					<GoalItem
 						title={itemData.item}
+						onDelete={removeGoalHandler}
 					/>
 				)}
 				// each list item needs a unique key 
