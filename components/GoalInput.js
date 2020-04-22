@@ -17,7 +17,6 @@ const GoalInput = props => {
 
     return (
         <Modal
-            style={styles.modal}
             visible={props.visible}
             animationType="slide"
         >
@@ -35,20 +34,17 @@ const GoalInput = props => {
 }
 
 const styles = StyleSheet.create({
-    modal: {
-        padding: 20
-    },
     inputContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
+        flex: 1,
+        justifyContent: "center",
         alignItems: "center"
     },
     input: {
+        width: '80%',
         borderBottomColor: "black",
         borderBottomWidth: 2,
         marginBottom: 10,
         fontSize: 18,
-        flexGrow: 1,
         marginRight: 16
     }
 })
