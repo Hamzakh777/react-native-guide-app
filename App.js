@@ -42,7 +42,11 @@ export default function App() {
 			  if they are not visible on the screen yet, this is very bad for performance
 			  and can make the app slow if we have a very long list
 			  thats why we use FlatList */}
-			<GoalInput visible={isAddMode} onAddGoal={addGoalHandler} />
+			<GoalInput 
+				visible={isAddMode}
+				onAddGoal={addGoalHandler}
+				onClose={() => setIsAddMode(false)}
+			/>
 			<FlatList
 				data={courseGoals}
 				// render item takes a callback function
