@@ -26,7 +26,7 @@ export default function App() {
 
 	const removeGoalHandler = goalToRemove => {
 		setCourseGoals(currentGoals => {
-			return currentGoals.filter(goal => goal !== goalToRemove);
+			return currentGoals.filter((goal) => goal !== goalToRemove);
 		});
 	};
 
@@ -44,8 +44,9 @@ export default function App() {
 			<FlatList
 				data={courseGoals}
 				// render item takes a callback function
-				renderItem={itemData => (
+				renderItem={(itemData) => (
 					<GoalItem
+						index={index}
 						title={itemData.item}
 						onDelete={removeGoalHandler}
 					/>
