@@ -20,6 +20,9 @@ export default function App() {
 	const addGoalHandler = goal => {
 		// to get teh latest snapshot of the state
 		setCourseGoals(currentGoals => [...currentGoals, goal]);
+		setIsAddMode(false);
+		// when settings two states together, react will batch these together so it will
+		// only have to rerender the dom once
 	};
 
 	const removeGoalHandler = goalToRemove => {
