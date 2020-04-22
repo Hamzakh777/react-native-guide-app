@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import {
 	StyleSheet,
-	Text,
 	View,
 	Button,
-	TextInput,
-	ScrollView,
 	FlatList
 } from "react-native";
 
@@ -18,6 +15,7 @@ import GoalItem from './components/GoalItem';
 // we have to use the Text component
 export default function App() {
 	const [courseGoals, setCourseGoals] = useState([]);
+	const [isAddMode, setIsAddMode] = useState(false);
 
 	const addGoalHandler = goal => {
 		// to get teh latest snapshot of the state
@@ -36,17 +34,17 @@ export default function App() {
 		// where keys are properties
 		// and the value is the value
 		<View style={styles.screen}>
+			<Button title="Add new goal" onPress={() => setIsAddMode(true)}/>
 			{/*  scroll view renders all the elements in advance even 
 			  if they are not visible on the screen yet, this is very bad for performance
 			  and can make the app slow if we have a very long list
 			  thats why we use FlatList */}
-			<GoalInput onAddGoal={addGoalHandler}/>
+			<GoalInput visible={isAddMode} onAddGoal={addGoalHandler} />
 			<FlatList
 				data={courseGoals}
 				// render item takes a callback function
 				renderItem={(itemData) => (
 					<GoalItem
-						index={index}
 						title={itemData.item}
 						onDelete={removeGoalHandler}
 					/>
